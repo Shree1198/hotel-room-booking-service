@@ -1,22 +1,23 @@
 package org.example.service;
 
 import org.example.dao.RoomDao;
+import org.example.dao.RoomDaoImpl;
 import org.example.model.Room;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class RoomServiceImpl implements RoomService {
-    private final RoomDao roomDao;
+    private final RoomDaoImpl roomDaoImpl;
 
     public RoomServiceImpl() {
-        this.roomDao = new RoomDao();
+        this.roomDaoImpl = new RoomDaoImpl();
     }
 
     @Override
-    public void addRoom(Room room)   {
+    public void addRoom(Room room) {
         try {
-            roomDao.addRoom(room);
+            roomDaoImpl.add(room);
         } catch (SQLException e) {
             // Log the exception or handle it as needed
             throw new RuntimeException("Failed to add room", e);
@@ -24,9 +25,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> getAllRooms()   {
+    public List<Room> getAllRooms() {
         try {
-            return roomDao.getAllRooms();
+            return roomDaoImpl.getAll();
         } catch (SQLException e) {
             // Log the exception or handle it as needed
             throw new RuntimeException("Failed to retrieve all rooms", e);
@@ -34,9 +35,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room getRoomById(int roomId)   {
+    public Room getRoomById(int roomId) {
         try {
-            return roomDao.getRoomById(roomId);
+            return roomDaoImpl.getById(roomId);
         } catch (SQLException e) {
             // Log the exception or handle it as needed
             throw new RuntimeException("Failed to retrieve room by ID", e);
@@ -44,9 +45,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void updateRoom(Room room)   {
+    public void updateRoom(Room room) {
         try {
-            roomDao.updateRoom(room);
+            roomDaoImpl.update(room);
         } catch (SQLException e) {
             // Log the exception or handle it as needed
             throw new RuntimeException("Failed to update room", e);

@@ -1,22 +1,23 @@
 package org.example.service;
 
 import org.example.dao.UserDao;
+import org.example.dao.UserDaoImpl;
 import org.example.model.User;
 
 import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private final UserDaoImpl userDaoImpl;
 
     public UserServiceImpl() {
-        this.userDao = new UserDao();
+        this.userDaoImpl = new UserDaoImpl();
     }
 
     @Override
     public void registerUser(User user) {
         try {
-            userDao.addUser(user);
+            userDaoImpl.add(user);
         } catch (SQLException e) {
             // Log the exception or handle it as needed
             throw new RuntimeException("Failed to register user", e);
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(int userId) {
         try {
-            return userDao.getUserById(userId);
+            return userDaoImpl.getById(userId);
         } catch (SQLException e) {
             // Log the exception or handle it as needed
             throw new RuntimeException("Failed to get user by ID", e);

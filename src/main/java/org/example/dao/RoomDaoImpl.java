@@ -3,6 +3,7 @@ package org.example.dao;
 import org.example.model.Room;
 import org.example.util.BookingSystemException;
 import org.example.util.DBUtil;
+import org.example.util.QueryConst;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +20,8 @@ public class RoomDaoImpl implements GenericDao<Room, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "INSERT INTO Rooms (room_name, capacity) VALUES (?, ?)";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "INSERT INTO Rooms (room_name, capacity) VALUES (?, ?)";
+            preparedStatement = connection.prepareStatement(QueryConst.ADD_ROOM);
             preparedStatement.setString(1, room.getRoomName());
             preparedStatement.setInt(2, room.getCapacity());
             preparedStatement.executeUpdate();
@@ -39,8 +40,8 @@ public class RoomDaoImpl implements GenericDao<Room, Integer> {
         Room room = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT * FROM Rooms WHERE room_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT * FROM Rooms WHERE room_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.GET_ROOM_BY_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -65,8 +66,8 @@ public class RoomDaoImpl implements GenericDao<Room, Integer> {
         List<Room> rooms = new ArrayList<>();
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT * FROM Rooms";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT * FROM Rooms";
+            preparedStatement = connection.prepareStatement(QueryConst.GET_ALL_ROOMS);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Room room = new Room();
@@ -89,8 +90,8 @@ public class RoomDaoImpl implements GenericDao<Room, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "UPDATE Rooms SET room_name = ?, capacity = ? WHERE room_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "UPDATE Rooms SET room_name = ?, capacity = ? WHERE room_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.UPDATE_ROOM);
             preparedStatement.setString(1, room.getRoomName());
             preparedStatement.setInt(2, room.getCapacity());
             preparedStatement.setInt(3, room.getRoomId());
@@ -108,8 +109,8 @@ public class RoomDaoImpl implements GenericDao<Room, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "DELETE FROM Rooms WHERE room_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "DELETE FROM Rooms WHERE room_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.DELETE_ROOM);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -127,8 +128,8 @@ public class RoomDaoImpl implements GenericDao<Room, Integer> {
         boolean exists = false;
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT COUNT(*) AS count FROM Rooms WHERE room_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT COUNT(*) AS count FROM Rooms WHERE room_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.ROOM_EXIST_BY_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

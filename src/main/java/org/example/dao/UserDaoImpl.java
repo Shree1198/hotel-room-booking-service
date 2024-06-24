@@ -3,6 +3,7 @@ package org.example.dao;
 import org.example.model.User;
 import org.example.util.BookingSystemException;
 import org.example.util.DBUtil;
+import org.example.util.QueryConst;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +20,8 @@ public class UserDaoImpl implements GenericDao<User, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
+            preparedStatement = connection.prepareStatement(QueryConst.ADD_USER);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getEmail());
@@ -40,8 +41,8 @@ public class UserDaoImpl implements GenericDao<User, Integer> {
         User user = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT * FROM Users WHERE user_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT * FROM Users WHERE user_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.GET_USER_BY_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -67,8 +68,8 @@ public class UserDaoImpl implements GenericDao<User, Integer> {
         List<User> users = new ArrayList<>();
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT * FROM Users";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT * FROM Users";
+            preparedStatement = connection.prepareStatement(QueryConst.GET_ALL_USER);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -92,8 +93,8 @@ public class UserDaoImpl implements GenericDao<User, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "UPDATE Users SET username = ?, password = ?, email = ? WHERE user_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "UPDATE Users SET username = ?, password = ?, email = ? WHERE user_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.UPDATE_USER);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getEmail());
@@ -113,7 +114,7 @@ public class UserDaoImpl implements GenericDao<User, Integer> {
         try {
             connection = DBUtil.getConnection();
             String query = "DELETE FROM Users WHERE user_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(QueryConst.DELETE_USER);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -131,8 +132,8 @@ public class UserDaoImpl implements GenericDao<User, Integer> {
         boolean exists = false;
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT COUNT(*) AS count FROM Users WHERE user_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT COUNT(*) AS count FROM Users WHERE user_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.USER_EXIST_BY_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

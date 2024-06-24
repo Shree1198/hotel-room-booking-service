@@ -9,6 +9,8 @@ import java.util.List;
 public interface BookingService {
     void addBooking(Booking booking) throws BookingSystemException;
 
+    Iterable;
+
     List<Booking> getAllBookings() throws SQLException;
 
     Booking getBookingById(int bookingId) throws SQLException;

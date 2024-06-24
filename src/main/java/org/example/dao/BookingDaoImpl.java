@@ -3,6 +3,7 @@ package org.example.dao;
 import org.example.model.Booking;
 import org.example.util.BookingSystemException;
 import org.example.util.DBUtil;
+import org.example.util.QueryConst;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +20,8 @@ public class BookingDaoImpl implements GenericDao<Booking, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "INSERT INTO Bookings (user_id, room_id, booking_date, start_time, end_time, number_of_occupants) VALUES (?, ?, ?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "INSERT INTO Bookings (user_id, room_id, booking_date, start_time, end_time, number_of_occupants) VALUES (?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(QueryConst.ADD_BOOKING);
             preparedStatement.setInt(1, booking.getUserId());
             preparedStatement.setInt(2, booking.getRoomId());
             preparedStatement.setDate(3, booking.getBookingDate());
@@ -43,8 +44,8 @@ public class BookingDaoImpl implements GenericDao<Booking, Integer> {
         Booking booking = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT * FROM Bookings WHERE booking_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT * FROM Bookings WHERE booking_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.GET_BOOKING_BY_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -73,8 +74,8 @@ public class BookingDaoImpl implements GenericDao<Booking, Integer> {
         List<Booking> bookings = new ArrayList<>();
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT * FROM Bookings";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT * FROM Bookings";
+            preparedStatement = connection.prepareStatement(QueryConst.GET_ALL_BOOKINGS);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Booking booking = new Booking();
@@ -101,8 +102,8 @@ public class BookingDaoImpl implements GenericDao<Booking, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "UPDATE Bookings SET user_id = ?, room_id = ?, booking_date = ?, start_time = ?, end_time = ?, number_of_occupants = ? WHERE booking_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "UPDATE Bookings SET user_id = ?, room_id = ?, booking_date = ?, start_time = ?, end_time = ?, number_of_occupants = ? WHERE booking_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.UPDATE_BOOKING);
             preparedStatement.setInt(1, booking.getUserId());
             preparedStatement.setInt(2, booking.getRoomId());
             preparedStatement.setDate(3, booking.getBookingDate());
@@ -124,8 +125,8 @@ public class BookingDaoImpl implements GenericDao<Booking, Integer> {
         PreparedStatement preparedStatement = null;
         try {
             connection = DBUtil.getConnection();
-            String query = "DELETE FROM Bookings WHERE booking_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "DELETE FROM Bookings WHERE booking_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.DELETE_BOOKING);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -143,8 +144,8 @@ public class BookingDaoImpl implements GenericDao<Booking, Integer> {
         boolean exists = false;
         try {
             connection = DBUtil.getConnection();
-            String query = "SELECT COUNT(*) AS count FROM Bookings WHERE booking_id = ?";
-            preparedStatement = connection.prepareStatement(query);
+//            String query = "SELECT COUNT(*) AS count FROM Bookings WHERE booking_id = ?";
+            preparedStatement = connection.prepareStatement(QueryConst.BOOKING_EXIST_BY_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

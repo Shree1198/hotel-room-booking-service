@@ -5,12 +5,14 @@ CREATE TABLE `bookings` (
   `booking_date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time NOT NULL,
+  `number_of_occupants` int NOT NULL,
   PRIMARY KEY (`booking_id`),
   KEY `user_id` (`user_id`),
   KEY `room_id` (`room_id`),
   CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`)
-)
+);
+
 
 
 CREATE TABLE `rooms` (

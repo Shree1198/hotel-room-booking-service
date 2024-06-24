@@ -16,7 +16,7 @@ public class BookingDao {
     public void addBooking(Booking booking) throws SQLException {
         Connection connection = DBUtil.getConnection();
 
-        PreparedStatement preparedStatement = connection.prepareStatement(QueryConst.ADD_BOOK);
+        PreparedStatement preparedStatement = connection.prepareStatement(QueryConst.ADD_BOOKING);
         preparedStatement.setInt(1, booking.getUserId());
         preparedStatement.setInt(2, booking.getRoomId());
         preparedStatement.setDate(3, booking.getBookingDate());
